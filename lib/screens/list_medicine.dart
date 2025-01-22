@@ -32,12 +32,27 @@ class Medicamento {
     return Medicamento(
       nome: map['nome'],
       descricao: map['descricao'],
-      icone: IconData(map['icone'], fontFamily: 'MaterialIcons'),
+      icone: _getIconFromName(map['icone']),
       detalhada: map['detalhada'],
       tipo: map['tipo'],
     );
   }
 }
+
+  // Converte o nome do ícone para um IconData constante
+  IconData _getIconFromName(String iconName) {
+    switch (iconName) {
+      case 'home':
+        return Icons.home;
+      case 'alarm':
+        return Icons.alarm;
+      case 'medical_services':
+        return Icons.medical_services;
+      // Adicione outros ícones usados no app
+      default:
+        return Icons.help; // Ícone padrão caso o nome não seja encontrado
+    }
+  }
 
 class ListMedicine extends StatefulWidget {
   @override
