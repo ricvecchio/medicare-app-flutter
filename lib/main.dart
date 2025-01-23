@@ -11,8 +11,6 @@ class MediCareApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MediCare',
-      theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/home',
       routes: {
         '/home': (context) => Home(),
@@ -28,11 +26,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('MediCare'),
-      ),
       body: Stack(
         children: [
           Positioned.fill(
