@@ -31,14 +31,24 @@ class Medicamento {
     return Medicamento(
       nome: map['nome'],
       descricao: map['descricao'],
-      icone: map['icone'] is int
-          ? IconData(map['icone'],
-              fontFamily: 'MaterialIcons') // Usa o codePoint diretamente
-          : _getIconFromName(map['icone']), // Converte a String para IconData
+      icone: _getIconFromMap(map[
+          'icone']), // Use uma função para garantir que o ícone seja constante
       detalhada: map['detalhada'],
       tipo: map['tipo'],
     );
   }
+}
+
+// Converte o nome do ícone para um IconData constante
+IconData _getIconFromMap(dynamic iconValue) {
+  if (iconValue is String) {
+    return _getIconFromName(
+        iconValue); // Converte String para IconData constante
+  } else if (iconValue is int) {
+    return Icons
+        .help; // Substitua por um ícone padrão, pois `IconData` dinâmico não é suportado
+  }
+  return Icons.help; // Ícone padrão para casos desconhecidos
 }
 
 // Converte o nome do ícone para um IconData constante
