@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-
 class Medicamento {
   final String nome;
   final String descricao;
@@ -32,27 +31,30 @@ class Medicamento {
     return Medicamento(
       nome: map['nome'],
       descricao: map['descricao'],
-      icone: _getIconFromName(map['icone']),
+      icone: map['icone'] is int
+          ? IconData(map['icone'],
+              fontFamily: 'MaterialIcons') // Usa o codePoint diretamente
+          : _getIconFromName(map['icone']), // Converte a String para IconData
       detalhada: map['detalhada'],
       tipo: map['tipo'],
     );
   }
 }
 
-  // Converte o nome do ícone para um IconData constante
-  IconData _getIconFromName(String iconName) {
-    switch (iconName) {
-      case 'home':
-        return Icons.home;
-      case 'alarm':
-        return Icons.alarm;
-      case 'medical_services':
-        return Icons.medical_services;
-      // Adicione outros ícones usados no app
-      default:
-        return Icons.help; // Ícone padrão caso o nome não seja encontrado
-    }
+// Converte o nome do ícone para um IconData constante
+IconData _getIconFromName(String iconName) {
+  switch (iconName) {
+    case 'home':
+      return Icons.home;
+    case 'alarm':
+      return Icons.alarm;
+    case 'medical_services':
+      return Icons.medical_services;
+    // Adicione outros ícones usados no app
+    default:
+      return Icons.help; // Ícone padrão caso o nome não seja encontrado
   }
+}
 
 class ListMedicine extends StatefulWidget {
   @override
@@ -65,14 +67,12 @@ class _ListMedicineState extends State<ListMedicine> {
   late String tipoMedicamento;
 
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      setState(() {
-        tipoMedicamento = ModalRoute.of(context)!.settings.arguments as String;
-      });
-      _loadMedicamentos();
-    });
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (ModalRoute.of(context)?.settings.arguments != null) {
+      tipoMedicamento = ModalRoute.of(context)!.settings.arguments as String;
+      _loadMedicamentos(); // Sempre recarregar ao alterar a rota
+    }
   }
 
   _loadMedicamentos() async {
@@ -89,120 +89,10 @@ class _ListMedicineState extends State<ListMedicine> {
             .toList();
       });
     } else {
+      // Não faz nada se não houver medicamentos armazenados
       setState(() {
-        if (tipoMedicamento == 'A') {
-          todosMedicamentos = [
-            Medicamento(
-              tipo: 'A',
-              nome: 'Paracetamol',
-              descricao: 'Antipirético e analgésico',
-              detalhada:
-                  'É um medicamento amplamente utilizado como analgésico para aliviar a dor e antitérmico para reduzir a febre.',
-              icone: Icons.local_hospital,
-            ),
-            Medicamento(
-              tipo: 'A',
-              nome: 'Dipirona',
-              descricao: 'Antipirético e analgésico',
-              detalhada:
-                  'É um analgésico e antitérmico amplamente utilizado no controle da dor e febre.',
-              icone: Icons.local_hospital,
-            ),
-            Medicamento(
-              tipo: 'A',
-              nome: 'Loratadina',
-              descricao: 'Antipirético',
-              detalhada:
-                  'Usado para aliviar sintomas de alergias, como rinite alérgica e urticária, sem causar sonolência significativa.',
-              icone: Icons.local_hospital,
-            ),
-          ];
-        } else if (tipoMedicamento == 'B') {
-          todosMedicamentos = [
-            Medicamento(
-              tipo: 'B',
-              nome: 'Omeprazol',
-              descricao: 'Tratamento de problemas gástricos, como refluxo.',
-              detalhada:
-                  'É um medicamento da classe dos inibidores da bomba de prótons (IBPs) utilizado principalmente para tratar condições relacionadas ao excesso de ácido gástrico.',
-              icone: Icons.medication,
-            ),
-            Medicamento(
-              tipo: 'B',
-              nome: 'Ibuprofeno',
-              descricao: 'Anti-inflamatório e analgésico.',
-              detalhada:
-                  'É um medicamento da classe dos anti-inflamatórios não esteroides (AINEs), amplamente utilizado para aliviar dor, reduzir febre e combater inflamação.',
-              icone: Icons.medication,
-            ),
-            Medicamento(
-              tipo: 'B',
-              nome: 'Cetoconazol',
-              descricao: 'Antifúngico tópico ou oral.',
-              detalhada:
-                  'É um antifúngico usado no tratamento de infecções causadas por fungos, como candidíase, dermatite seborreica e micoses.',
-              icone: Icons.medication,
-            ),
-          ];
-        } else if (tipoMedicamento == 'C') {
-          todosMedicamentos = [
-            Medicamento(
-              tipo: 'C',
-              nome: 'Losartana',
-              descricao: 'Antihipertensivo',
-              detalhada:
-                  'É um medicamento antihipertensivo, utilizado para tratar a hipertensão e prevenir complicações renais.',
-              icone: Icons.medication,
-            ),
-            Medicamento(
-              tipo: 'C',
-              nome: 'Amoxicilina',
-              descricao: 'Antibiótico',
-              detalhada:
-                  'É um antibiótico da classe das penicilinas, utilizado no tratamento de diversas infecções bacterianas.',
-              icone: Icons.medication,
-            ),
-            Medicamento(
-              tipo: 'C',
-              nome: 'Diazepam',
-              descricao:
-                  'Benzodiazepínico usado como ansiolítico e relaxante muscular.',
-              detalhada:
-                  'É um ansiolítico e relaxante muscular da classe das benzodiazepinas, utilizado para tratar ansiedade, insônia e espasmos musculares.',
-              icone: Icons.medication,
-            ),
-          ];
-        } else if (tipoMedicamento == 'D') {
-          todosMedicamentos = [
-            Medicamento(
-              tipo: 'D',
-              nome: 'Clonazepam',
-              descricao: 'Ansiolítico e anticonvulsivante.',
-              detalhada:
-                  'É um ansiolítico e anticonvulsivante da classe das benzodiazepinas, utilizado para tratar ansiedade, transtornos de pânico e epilepsia.',
-              icone: Icons.medication,
-            ),
-            Medicamento(
-              tipo: 'D',
-              nome: 'Venvanse',
-              descricao:
-                  '(Lisdexanfetamina) - Estimulante usado no tratamento do TDAH.',
-              detalhada:
-                  'Estimulante do sistema nervoso central indicado para o tratamento do Transtorno de Déficit de Atenção e Hiperatividade (TDAH).',
-              icone: Icons.medication,
-            ),
-            Medicamento(
-              tipo: 'D',
-              nome: 'Ritalina',
-              descricao:
-                  '(Metilfenidato) - Estimulante usado no tratamento do TDAH.',
-              detalhada:
-                  'É um estimulante do sistema nervoso central, usado no tratamento do Transtorno de Déficit de Atenção e Hiperatividade (TDAH) e narcolepsia.',
-              icone: Icons.medication,
-            ),
-          ];
-        }
-        medicamentosFiltrados = todosMedicamentos;
+        todosMedicamentos = [];
+        medicamentosFiltrados = [];
       });
     }
   }
@@ -212,7 +102,7 @@ class _ListMedicineState extends State<ListMedicine> {
     List<Map<String, dynamic>> mappedMedicamentos =
         todosMedicamentos.map((e) => e.toMap()).toList();
     String encodedMedicamentos = json.encode(mappedMedicamentos);
-    prefs.setString('medicamentos', encodedMedicamentos);
+    await prefs.setString('medicamentos', encodedMedicamentos);
   }
 
   String _getPageTitle(String tipo) {
@@ -243,7 +133,8 @@ class _ListMedicineState extends State<ListMedicine> {
             .where((med) => med.tipo == tipoMedicamento)
             .toList();
       });
-      _saveMedicamentos();
+      _saveMedicamentos(); // Persistência após adicionar
+      _loadMedicamentos(); // Recarrega a lista para refletir mudanças
     }
   }
 

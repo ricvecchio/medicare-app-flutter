@@ -36,7 +36,7 @@ class _AddMedicineState extends State<AddMedicine> {
         detalhada: _detalhadaController.text,
         tipo: tipo, // Usa o tipo recebido
       );
-      Navigator.pop(context, newMedicine);
+      Navigator.pop(context, newMedicine); // Retorna o medicamento criado
     }
   }
 
