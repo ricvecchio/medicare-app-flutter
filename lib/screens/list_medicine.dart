@@ -150,6 +150,7 @@ class _ListMedicineState extends State<ListMedicine> {
       '/add-medicine',
       arguments: tipoMedicamento,
     );
+
     if (newMedicine != null && newMedicine is Medicamento) {
       setState(() {
         todosMedicamentos.add(newMedicine);
@@ -159,6 +160,9 @@ class _ListMedicineState extends State<ListMedicine> {
       });
       _saveMedicamentos(); // Persistência após adicionar
       _loadMedicamentos(); // Recarrega a lista para refletir mudanças
+    } else {
+      Navigator.pop(
+          context); // Isso é para garantir que a navegação volte corretamente
     }
   }
 
