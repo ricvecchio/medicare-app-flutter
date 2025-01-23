@@ -120,6 +120,20 @@ class _ListMedicineState extends State<ListMedicine> {
     }
   }
 
+  void _deleteMedicine(int index) async {
+    final removedMedicine = medicamentosFiltrados[index];
+
+    setState(() {
+      // Remove o medicamento da lista filtrada
+      medicamentosFiltrados.removeAt(index);
+      // Atualiza a lista de todos os medicamentos
+      todosMedicamentos.removeWhere((med) => med.nome == removedMedicine.nome);
+    });
+
+    // Salva a lista atualizada no SharedPreferences
+    _saveMedicamentos();
+  }
+
   void _addNewMedicine(BuildContext context) async {
     final newMedicine = await Navigator.pushNamed(
       context,
@@ -176,8 +190,7 @@ class _ListMedicineState extends State<ListMedicine> {
         title: Flexible(
           child: Text(
             _getPageTitle(tipoMedicamento),
-            style: TextStyle(
-                fontSize: 18), // Ajuste o tamanho da fonte se necessário
+            style: TextStyle(fontSize: 18),
             softWrap: true,
             overflow: TextOverflow.visible,
           ),
@@ -203,8 +216,44 @@ class _ListMedicineState extends State<ListMedicine> {
                 medicamento.descricao,
                 style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
-              trailing:
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      // Confirmação antes de excluir
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Excluir Medicamento'),
+                            content: Text(
+                                'Você tem certeza que deseja excluir este medicamento?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // Fechar o alerta
+                                },
+                                child: Text('Cancelar'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // Exclui o medicamento
+                                  _deleteMedicine(index);
+                                  Navigator.pop(context); // Fechar o alerta
+                                },
+                                child: Text('Excluir'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
                   Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                ],
+              ),
               onTap: () {
                 _showDetails(context, medicamento);
               },

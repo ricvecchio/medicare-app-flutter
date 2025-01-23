@@ -27,7 +27,8 @@ class ClassificationMedicine extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Habilita a rolagem horizontal
+                scrollDirection:
+                    Axis.horizontal, // Habilita a rolagem horizontal
                 child: Row(
                   children: [
                     ElevatedButton(
