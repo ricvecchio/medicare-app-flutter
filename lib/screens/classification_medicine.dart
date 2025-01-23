@@ -26,62 +26,67 @@ class ClassificationMedicine extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/list-medicine',
-                          arguments: 'A');
-                    },
-                    child: Text('Sem Tarja'),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      backgroundColor: Colors.transparent,
-                      foregroundColor: Colors.black,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Habilita a rolagem horizontal
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/list-medicine',
+                            arguments: 'A');
+                      },
+                      child: Text('Sem Tarja'),
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.black,
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/list-medicine',
-                          arguments: 'B');
-                    },
-                    child: Text('Tarja Amarela'),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      backgroundColor: Colors.transparent,
-                      foregroundColor: Colors.black,
+                    SizedBox(width: 10), // Espaço entre os botões
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/list-medicine',
+                            arguments: 'B');
+                      },
+                      child: Text('Tarja Amarela'),
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.black,
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/list-medicine',
-                          arguments: 'C');
-                    },
-                    child: Text('Tarja Vermelha'),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      backgroundColor: Colors.transparent,
-                      foregroundColor: Colors.black,
+                    SizedBox(width: 10), // Espaço entre os botões
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/list-medicine',
+                            arguments: 'C');
+                      },
+                      child: Text('Tarja Vermelha'),
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.black,
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/list-medicine',
-                          arguments: 'D');
-                    },
-                    child: Text('Tarja Preta'),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      backgroundColor: Colors.transparent,
-                      foregroundColor: Colors.black,
+                    SizedBox(width: 10), // Espaço entre os botões
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/list-medicine',
+                            arguments: 'D');
+                      },
+                      child: Text('Tarja Preta'),
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.black,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
