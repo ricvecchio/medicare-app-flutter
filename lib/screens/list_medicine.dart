@@ -200,17 +200,18 @@ class _ListMedicineState extends State<ListMedicine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Flexible(
-          child: Text(
-            _getPageTitle(tipoMedicamento),
-            style: TextStyle(fontSize: 18),
-            softWrap: true,
-            overflow: TextOverflow.visible,
-          ),
-        ),
-        backgroundColor: Colors.grey[600],
+appBar: AppBar(
+  title: Flexible(
+    child: FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Text(
+        _getPageTitle(tipoMedicamento),
+        style: TextStyle(fontSize: 18),
       ),
+    ),
+  ),
+  backgroundColor: Colors.grey[600],
+),
       backgroundColor: Colors.grey[300],
       body: ListView.builder(
         itemCount: medicamentosFiltrados.length,

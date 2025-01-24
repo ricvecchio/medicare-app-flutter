@@ -24,7 +24,10 @@ class _ClassificationMedicineState extends State<ClassificationMedicine> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text('Classificação dos Medicamentos'),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text('Classificação dos Medicamentos'),
+          ),
         ),
         backgroundColor: Colors.grey[600],
       ),
