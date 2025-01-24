@@ -279,7 +279,7 @@ appBar: AppBar(
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addNewMedicine(context),
         child: Icon(Icons.add),
-        backgroundColor: Colors.grey[600],
+        backgroundColor: Colors.green[600],
       ),
     );
   }
