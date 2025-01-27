@@ -31,27 +31,22 @@ class Medicamento {
     return Medicamento(
       nome: map['nome'],
       descricao: map['descricao'],
-      icone: _getIconFromMap(map[
-          'icone']), // Use uma função para garantir que o ícone seja constante
+      icone: _getIconFromMap(map['icone']),
       detalhada: map['detalhada'],
       tipo: map['tipo'],
     );
   }
 }
 
-// Converte o nome do ícone para um IconData constante
 IconData _getIconFromMap(dynamic iconValue) {
   if (iconValue is String) {
-    return _getIconFromName(
-        iconValue); // Converte String para IconData constante
+    return _getIconFromName(iconValue);
   } else if (iconValue is int) {
-    return Icons
-        .help; // Substitua por um ícone padrão, pois `IconData` dinâmico não é suportado
+    return Icons.help;
   }
-  return Icons.help; // Ícone padrão para casos desconhecidos
+  return Icons.help;
 }
 
-// Converte o nome do ícone para um IconData constante
 IconData _getIconFromName(String iconName) {
   switch (iconName) {
     case 'home':
@@ -60,9 +55,8 @@ IconData _getIconFromName(String iconName) {
       return Icons.alarm;
     case 'medical_services':
       return Icons.medical_services;
-    // Adicione outros ícones usados no app
     default:
-      return Icons.help; // Ícone padrão caso o nome não seja encontrado
+      return Icons.help;
   }
 }
 
@@ -99,7 +93,6 @@ class _ListMedicineState extends State<ListMedicine> {
             .toList();
       });
     } else {
-      // Não faz nada se não houver medicamentos armazenados
       setState(() {
         todosMedicamentos = [];
         medicamentosFiltrados = [];
@@ -132,15 +125,10 @@ class _ListMedicineState extends State<ListMedicine> {
 
   void _deleteMedicine(int index) async {
     final removedMedicine = medicamentosFiltrados[index];
-
     setState(() {
-      // Remove o medicamento da lista filtrada
       medicamentosFiltrados.removeAt(index);
-      // Atualiza a lista de todos os medicamentos
       todosMedicamentos.removeWhere((med) => med.nome == removedMedicine.nome);
     });
-
-    // Salva a lista atualizada no SharedPreferences
     _saveMedicamentos();
   }
 
@@ -158,11 +146,10 @@ class _ListMedicineState extends State<ListMedicine> {
             .where((med) => med.tipo == tipoMedicamento)
             .toList();
       });
-      _saveMedicamentos(); // Persistência após adicionar
-      _loadMedicamentos(); // Recarrega a lista para refletir mudanças
+      _saveMedicamentos();
+      _loadMedicamentos();
     } else {
-      Navigator.pop(
-          context); // Isso é para garantir que a navegação volte corretamente
+      Navigator.pop(context);
     }
   }
 
@@ -200,18 +187,18 @@ class _ListMedicineState extends State<ListMedicine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: AppBar(
-  title: Flexible(
-    child: FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Text(
-        _getPageTitle(tipoMedicamento),
-        style: TextStyle(fontSize: 18),
+      appBar: AppBar(
+        title: Flexible(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              _getPageTitle(tipoMedicamento),
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        ),
+        backgroundColor: Colors.grey[600],
       ),
-    ),
-  ),
-  backgroundColor: Colors.grey[600],
-),
       backgroundColor: Colors.grey[300],
       body: ListView.builder(
         itemCount: medicamentosFiltrados.length,

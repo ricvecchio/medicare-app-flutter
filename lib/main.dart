@@ -32,11 +32,11 @@ class Home extends StatelessWidget {
           Positioned.fill(
             child: Image.asset(
               'images/logo-medicare.jpeg',
-              fit: BoxFit.cover, // Cobrir toda a tela sem distorção
+              fit: BoxFit.cover,
             ),
           ),
           Positioned(
-            bottom: screenSize.height * 0.05, // Responsivo com base na altura
+            bottom: screenSize.height * 0.05,
             left: 0,
             right: 0,
             child: Center(
@@ -47,14 +47,14 @@ class Home extends StatelessWidget {
                 child: Text(
                   'Comece aqui!',
                   style: TextStyle(
-                    fontSize: screenSize.width * 0.03, // Fonte responsiva
+                    fontSize: screenSize.width * 0.03,
                     color: Colors.black,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(
-                    horizontal: screenSize.width * 0.06, // Largura responsiva
-                    vertical: screenSize.height * 0.010, // Altura responsiva
+                    horizontal: screenSize.width * 0.06,
+                    vertical: screenSize.height * 0.010,
                   ),
                   backgroundColor: Colors.transparent,
                 ),

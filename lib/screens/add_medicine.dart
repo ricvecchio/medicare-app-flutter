@@ -12,16 +12,14 @@ class _AddMedicineState extends State<AddMedicine> {
   final _descricaoController = TextEditingController();
   final _detalhadaController = TextEditingController();
 
-  late String tipo; // Armazena o tipo recebido
+  late String tipo;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Obtém o tipo passado como argumento
     final String? receivedTipo =
         ModalRoute.of(context)?.settings.arguments as String?;
     if (receivedTipo == null) {
-      // Adicione uma validação para garantir que o tipo não seja null
       throw Exception("O tipo do medicamento não foi passado corretamente.");
     }
     tipo = receivedTipo;
@@ -34,9 +32,9 @@ class _AddMedicineState extends State<AddMedicine> {
         descricao: _descricaoController.text,
         icone: Icons.medical_services,
         detalhada: _detalhadaController.text,
-        tipo: tipo, // Usa o tipo recebido
+        tipo: tipo,
       );
-      Navigator.pop(context, newMedicine); // Retorna o medicamento criado
+      Navigator.pop(context, newMedicine);
     }
   }
 
@@ -49,7 +47,7 @@ class _AddMedicineState extends State<AddMedicine> {
         ),
         backgroundColor: Colors.grey[600],
       ),
-      backgroundColor: Colors.grey[300], // Define a cor de fundo da tela
+      backgroundColor: Colors.grey[300],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
