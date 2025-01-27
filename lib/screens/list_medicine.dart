@@ -75,7 +75,7 @@ class _ListMedicineState extends State<ListMedicine> {
     super.didChangeDependencies();
     if (ModalRoute.of(context)?.settings.arguments != null) {
       tipoMedicamento = ModalRoute.of(context)!.settings.arguments as String;
-      _loadMedicamentos(); // Sempre recarregar ao alterar a rota
+      _loadMedicamentos(); 
     }
   }
 
@@ -224,7 +224,6 @@ class _ListMedicineState extends State<ListMedicine> {
                   IconButton(
                     icon: Icon(Icons.delete, color: Colors.red),
                     onPressed: () {
-                      // Confirmação antes de excluir
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -235,15 +234,14 @@ class _ListMedicineState extends State<ListMedicine> {
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pop(context); // Fechar o alerta
+                                  Navigator.pop(context);
                                 },
                                 child: Text('Cancelar'),
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // Exclui o medicamento
                                   _deleteMedicine(index);
-                                  Navigator.pop(context); // Fechar o alerta
+                                  Navigator.pop(context); 
                                 },
                                 child: Text('Excluir'),
                               ),
